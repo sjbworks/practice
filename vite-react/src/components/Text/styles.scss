@@ -1,0 +1,69 @@
+.lma-text {
+  color: #3f3f3f;
+  font-family: var(--font-family);
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: -0.2px;
+
+  &.bold {
+    font-weight: 600;
+  }
+
+  &.white {
+    color: var(--white);
+  }
+
+  &.black {
+    color: var(--black);
+  }
+
+  &.line {
+    color: var(--line);
+  }
+
+  &.primary {
+    color: var(--primary);
+  }
+
+  &.secondary {
+    color: var(--secondary);
+  }
+
+  &.danger {
+    color: var(--danger);
+  }
+
+  &.tertiary {
+    color: var(--tertiary);
+  }
+
+  &.xs {
+    font-size: 10px;
+  }
+
+  &.sm {
+    font-size: 12px;
+  }
+
+  &.md {
+    font-size: 16px;
+  }
+
+  &.lg {
+    font-size: 20px;
+  }
+
+  &.xl {
+    font-size: 24px;
+  }
+
+  &.xxl {
+    font-size: 32px;
+  }
+
+  &.xxxl {
+    font-size: 40px;
+  }
+}
