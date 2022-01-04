@@ -1,12 +1,12 @@
-import { ApexOptions } from 'apexcharts'
+import type { ApexOptions } from "apexcharts";
 
 export type LineChartSeries<T> = {
-  name: string
-  data: T[]
-}
+  name: string;
+  data: T[];
+};
 
 export type LineChartProps<T> = {
-  series?: LineChartSeries<T>[]
-  options?: ApexOptions
-  className?: string
-}
+  series?: LineChartSeries<T>[];
+  options?: ApexOptions;
+  className?: string;
+};
