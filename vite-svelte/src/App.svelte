@@ -1,8 +1,7 @@
 <script lang="ts">
-  import logo from './assets/svelte.png'
-  import Counter from './lib/Counter.svelte'
-  import {Card} from './components/Card'
-  import {LineChart,LineChartSeries} from './components/LineChart'
+  import { LineChart,LineChartProps } from './components/LineChart'
+  import { getGraphData } from './api'
+  import type { S } from './types'
 
   const PERIOD = {
     MONTH: "month",
@@ -11,8 +10,8 @@
     ALL: "all",
   };
 
-  let data:LineChartSeries<number>[]
-  let selectValue:string = "month"
+  export let graphData: LineChartProps<number>
+  export let selectValue:string = "month"
 
   const periodMap = {
     [PERIOD.MONTH]: {
@@ -32,19 +31,21 @@
       periodMap[selectValue].from,
       periodMap[selectValue].to
     );
-    const data = newData.map(({ Cases }: S) => Cases);
-    setData([{ name: "s", data }]);
+    const data = newData.map(({ Cases }:S) => Cases);
+    graphData = {series:[{ name: "s", data }]}
+    console.log(graphData)
   };
-
-  // useEffect(() => {
-  //   setGraphData();
-  //   console.log(data);
-  // }, [selectValue]);
 
 </script>
 
 <main>
-  <Card><LineChart generic={Number} /></Card>
+  <select value={selectValue} onChange={setGraphData}>
+    <option value={PERIOD.MONTH}>month</option>
+    <option value={PERIOD.HALF_YEAR}>half year</option>
+    <option value={PERIOD.YEAR}>year</option>
+    <option value={PERIOD.ALL}>all</option>
+  </select>
+  <LineChart props={graphData} />
 </main>
 
 <style>
