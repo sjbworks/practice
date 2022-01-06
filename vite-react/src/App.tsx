@@ -1,60 +1,116 @@
 import { useState, useEffect, ChangeEvent } from "react";
 import LineChart, { LineChartSeries } from "./components/LineChart";
 import { getGraphData } from "./api";
+import { PERIOD, periodMap } from "./constants";
+import { S } from "./types";
 import "./App.css";
 
-const PERIOD = {
-  MONTH: "month",
-  HALF_YEAR: "halfYear",
-  YEAR: "year",
-  ALL: "all",
-};
-
 export const App = () => {
-  const [data, setData] = useState<LineChartSeries<number>[]>();
-  const [selectValue, setSelectValue] = useState<string>("month");
-  const handleChangeSelect = (event: ChangeEvent<{ value: string }>) =>
-    setSelectValue(event.target.value);
+  const [data1, setData1] = useState<LineChartSeries<number>[]>();
+  const [data2, setData2] = useState<LineChartSeries<number>[]>();
+  const [data3, setData3] = useState<LineChartSeries<number>[]>();
+  const [data4, setData4] = useState<LineChartSeries<number>[]>();
+  const [selectValue1, setSelectValue1] = useState<string>("month");
+  const [selectValue2, setSelectValue2] = useState<string>("halfYear");
+  const [selectValue3, setSelectValue3] = useState<string>("year");
+  const [selectValue4, setSelectValue4] = useState<string>("all");
+  const handleChangeSelect1 = (event: ChangeEvent<{ value: string }>) =>
+    setSelectValue1(event.target.value);
+  const handleChangeSelect2 = (event: ChangeEvent<{ value: string }>) =>
+    setSelectValue2(event.target.value);
+  const handleChangeSelect3 = (event: ChangeEvent<{ value: string }>) =>
+    setSelectValue3(event.target.value);
+  const handleChangeSelect4 = (event: ChangeEvent<{ value: string }>) =>
+    setSelectValue4(event.target.value);
 
-  const periodMap = {
-    [PERIOD.MONTH]: {
-      from: "2020-03-01T00:00:00Z",
-      to: "2020-04-01T00:00:00Z",
-    },
-    [PERIOD.HALF_YEAR]: {
-      from: "2020-03-01T00:00:00Z",
-      to: "2020-09-01T00:00:00Z",
-    },
-    [PERIOD.YEAR]: { from: "2020-03-01T00:00:00Z", to: "2021-03-01T00:00:00Z" },
-    [PERIOD.ALL]: { from: "2020-03-01T00:00:00Z", to: "2021-12-28T00:00:00Z" },
-  };
-
-  const setGraphData = async () => {
+  const setGraphData1 = async () => {
     const newData = await getGraphData(
-      periodMap[selectValue].from,
-      periodMap[selectValue].to
+      periodMap[selectValue1].from,
+      periodMap[selectValue1].to
     );
     const data = newData.map(({ Cases }: S) => Cases);
-    setData([{ name: "s", data }]);
+    setData1([{ name: "s", data }]);
+  };
+  const setGraphData2 = async () => {
+    const newData = await getGraphData(
+      periodMap[selectValue2].from,
+      periodMap[selectValue2].to
+    );
+    const data = newData.map(({ Cases }: S) => Cases);
+    setData2([{ name: "s", data }]);
+  };
+  const setGraphData3 = async () => {
+    const newData = await getGraphData(
+      periodMap[selectValue3].from,
+      periodMap[selectValue3].to
+    );
+    const data = newData.map(({ Cases }: S) => Cases);
+    setData3([{ name: "s", data }]);
+  };
+  const setGraphData4 = async () => {
+    const newData = await getGraphData(
+      periodMap[selectValue4].from,
+      periodMap[selectValue4].to
+    );
+    const data = newData.map(({ Cases }: S) => Cases);
+    setData4([{ name: "s", data }]);
   };
 
   useEffect(() => {
-    setGraphData();
-    console.log(data);
-  }, [selectValue]);
+    setGraphData1();
+  }, [selectValue1]);
+  useEffect(() => {
+    setGraphData2();
+  }, [selectValue2]);
+  useEffect(() => {
+    setGraphData3();
+  }, [selectValue3]);
+  useEffect(() => {
+    setGraphData4();
+  }, [selectValue4]);
 
   return (
-    <div className="App">
-      <select value={selectValue} onChange={handleChangeSelect}>
-        <option value={PERIOD.MONTH}>month</option>
-        <option value={PERIOD.HALF_YEAR}>half year</option>
-        <option value={PERIOD.YEAR}>year</option>
-        <option value={PERIOD.ALL}>all</option>
-      </select>
-      <LineChart<number> series={data} />
-      <LineChart<number> series={data} />
-      <LineChart<number> series={data} />
-      <LineChart<number> series={data} />
+    <div className="main">
+      <div>
+        <div className="card">
+          <select value={selectValue1} onChange={handleChangeSelect1}>
+            <option value={PERIOD.MONTH}>month</option>
+            <option value={PERIOD.HALF_YEAR}>half year</option>
+            <option value={PERIOD.YEAR}>year</option>
+            <option value={PERIOD.ALL}>all</option>
+          </select>
+          <LineChart<number> series={data1} />
+        </div>
+        <div className="card">
+          <select value={selectValue2} onChange={handleChangeSelect2}>
+            <option value={PERIOD.MONTH}>month</option>
+            <option value={PERIOD.HALF_YEAR}>half year</option>
+            <option value={PERIOD.YEAR}>year</option>
+            <option value={PERIOD.ALL}>all</option>
+          </select>
+          <LineChart<number> series={data2} />
+        </div>
+      </div>
+      <div>
+        <div className="card">
+          <select value={selectValue3} onChange={handleChangeSelect3}>
+            <option value={PERIOD.MONTH}>month</option>
+            <option value={PERIOD.HALF_YEAR}>half year</option>
+            <option value={PERIOD.YEAR}>year</option>
+            <option value={PERIOD.ALL}>all</option>
+          </select>
+          <LineChart<number> series={data3} />
+        </div>
+        <div className="card">
+          <select value={selectValue4} onChange={handleChangeSelect4}>
+            <option value={PERIOD.MONTH}>month</option>
+            <option value={PERIOD.HALF_YEAR}>half year</option>
+            <option value={PERIOD.YEAR}>year</option>
+            <option value={PERIOD.ALL}>all</option>
+          </select>
+          <LineChart<number> series={data4} />
+        </div>
+      </div>
     </div>
   );
 };
