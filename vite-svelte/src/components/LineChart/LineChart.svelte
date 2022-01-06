@@ -1,24 +1,18 @@
 <script lang="ts">
 import { chart } from "svelte-apexcharts";
-import type { LineChartProps } from ".";
+import type { LineChartSeries } from ".";
 
-export let props: LineChartProps<number> = {
-  options: {},
-  series: [{ name: "", data: [] }],
-  className: "",
-}
+export let series: LineChartSeries<number>| undefined = { name: "", data: [] }
+export let className: string = ''
 
-let options = {
+$: options = {
   chart: {
     type: "line",
   },
-  series: props.series,
-  // xaxis: {
-  //   categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
-  // },
+  series: [series],
 };
 </script>
 
-<div class={$$props.className}>
+<div class={className}>
   <div use:chart={options} />
 </div>
