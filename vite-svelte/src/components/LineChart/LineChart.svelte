@@ -11,6 +11,7 @@ $: options = {
   },
   series: [series],
 };
+$: console.log('LineChart is rendered')
 </script>
 
 <div class={className}>
