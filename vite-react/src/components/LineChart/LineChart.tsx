@@ -1,13 +1,17 @@
 // import React from "react";
+import { useEffect } from "react";
 import Chart from "react-apexcharts";
 
 import { LineChartProps } from ".";
 
-const LineChart = <T,>({ className, ...props }: LineChartProps<T>) => (
-  <div className={className}>
-    <Chart {...props} type="line" />
-  </div>
-);
+const LineChart = <T,>({ className, ...props }: LineChartProps<T>) => {
+  useEffect(() => console.log("LineChart is rendered"));
+  return (
+    <div className={className}>
+      <Chart {...props} type="line" />
+    </div>
+  );
+};
 
 LineChart.defaultProps = {
   options: {},
