@@ -1,8 +1,8 @@
 <script lang="ts">
 import { chart } from "svelte-apexcharts";
 import type { LineChartSeries } from ".";
-
-export let series: LineChartSeries<number>| undefined = { name: "", data: [] }
+type SeriesType = $$Generic;
+export let series: LineChartSeries<SeriesType>| undefined = { name: "", data: [] }
 export let className: string = ''
 
 $: options = {
