@@ -17,7 +17,7 @@ const addTwoNumbers = (l1: any[], l2: any[]) => {
     arrayResult.push(Number(tempString));
     temp > 9 && tenPlace.push(Number(String(temp).substring(0, 1)));
     i === arrayLong.length - 1 &&
-      tenPlace.pop() &&
+      tenPlace.length &&
       arrayResult.push(tenPlace.pop());
   }
 
