@@ -39,3 +39,53 @@ function getMedian(nums1: number[], nums2: number[]): number {
 
 console.log(getMedian([1, 3], [2])); // 2
 console.log(getMedian([3], [-2, -1])); // -1
+
+// 最長の回文箇所を取得する
+// Time Limit Exceeded
+// O(n^2)になっているのでデータ量に比例して計算量も増える
+function bruteForcePalindrome(s: string): string {
+  if (s.length < 2) return s;
+  let palindrome = "";
+  for (let i = 0; i < s.length; i++) {
+    for (let j = 0; j <= s.length; j++) {
+      if (j > i) {
+        const str = s.substring(i, j);
+        if (
+          str === str.split("").reverse().join("") &&
+          palindrome.length < str.length
+        ) {
+          palindrome = str;
+        }
+      }
+    }
+  }
+  return palindrome;
+}
+
+// 回文を中央の文字から探索する
+function longestPalindrome(s: string): string {
+  if (s.length < 2) return s;
+  let start = 0,
+    end = 0;
+  for (let i = 0; i < s.length; i++) {
+    let length1 = expandAroundCenter(s, i, i);
+    let length2 = expandAroundCenter(s, i, i + 1);
+    let len = Math.max(length1, length2);
+    if (len > end - start) {
+      start = i - (len - 1) / 2;
+      end = i + len / 2;
+    }
+  }
+  return s.slice(Math.ceil(start), end + 1);
+}
+
+function expandAroundCenter(s: string, left: number, right: number): number {
+  let l = left;
+  let r = right;
+  while (l >= 0 && r < s.length && s.charAt(l) == s.charAt(r)) {
+    // if (s[l] !== s[r]) break;
+    l--;
+    r++;
+  }
+  return r - l - 1;
+}
