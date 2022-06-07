@@ -91,16 +91,36 @@ function expandAroundCenter(s: string, left: number, right: number): number {
 }
 
 function convert(s: string, numRows: number): string {
-  if(numRows < 2) return s
-  let zig = []
-  let cycle = numRows * 2 - 2
-  for(let j = 0; j < numRows; j++){
-      for(let i = 0; j + i < s.length; i+= cycle) {
-          zig.push(s.charAt(i+j))
-          if(j !== 0 && j !== numRows-1) {
-              zig.push(s.charAt(i + cycle -j))
-          }
+  if (numRows < 2) return s;
+  let zig = [];
+  let cycle = numRows * 2 - 2;
+  for (let j = 0; j < numRows; j++) {
+    for (let i = 0; j + i < s.length; i += cycle) {
+      zig.push(s.charAt(i + j));
+      if (j !== 0 && j !== numRows - 1) {
+        zig.push(s.charAt(i + cycle - j));
       }
+    }
   }
-  return zig.join('')
-};
+  return zig.join("");
+}
+
+// input: "  -0012a42"
+// output: 0
+// expected: -12
+function myAtoi(s: string): number {
+  if (/(?=[^0-9])(?=[^\s])(?=[^\+])(?=[^\-])/.test(s[0])) return 0;
+  const limit = 2147483648;
+  // console.log(s.split(' '))
+  const array = s
+    .split(" ")
+    .filter((e) => !Number.isNaN(Number(e)) && e !== "");
+  // const k = Number(array[0]) < 0 ? -1 : 1
+  // console.log(array)
+  if (Number.isNaN(Number(array[0]))) return 0;
+  return limit * -1 > Number(array[0])
+    ? limit * -1
+    : Number(array[0]) > limit
+    ? limit - 1
+    : Number(array[0]);
+}
