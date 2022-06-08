@@ -105,22 +105,11 @@ function convert(s: string, numRows: number): string {
   return zig.join("");
 }
 
-// input: "  -0012a42"
-// output: 0
-// expected: -12
 function myAtoi(s: string): number {
   if (/(?=[^0-9])(?=[^\s])(?=[^\+])(?=[^\-])/.test(s[0])) return 0;
   const limit = 2147483648;
-  // console.log(s.split(' '))
-  const array = s
-    .split(" ")
-    .filter((e) => !Number.isNaN(Number(e)) && e !== "");
-  // const k = Number(array[0]) < 0 ? -1 : 1
-  // console.log(array)
-  if (Number.isNaN(Number(array[0]))) return 0;
-  return limit * -1 > Number(array[0])
-    ? limit * -1
-    : Number(array[0]) > limit
-    ? limit - 1
-    : Number(array[0]);
+  const a = s.split(" ").filter((e) => e !== "");
+  const v = Number(a[0]?.split(/(?=[^0-9])/)[0]);
+  if (Number.isNaN(v)) return 0;
+  return limit * -1 > v ? limit * -1 : v >= limit ? limit - 1 : v;
 }
