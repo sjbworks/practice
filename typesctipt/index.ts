@@ -113,3 +113,8 @@ function myAtoi(s: string): number {
   if (Number.isNaN(v)) return 0;
   return limit * -1 > v ? limit * -1 : v >= limit ? limit - 1 : v;
 }
+
+function isPalindrome(x: number): boolean {
+  if (x < 0) false;
+  return x === Number(String(x).split("").reverse().join("")) ? true : false;
+}
