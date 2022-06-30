@@ -1,6 +1,6 @@
-const addTwoNumbers = (l1: any[], l2: any[]) => {
-  let arrayLong, arrayShort;
-  let arrayResult = [];
+const addTwoNumbers = (l1: number[], l2: number[]) => {
+  let arrayLong: number[], arrayShort: number[];
+  let arrayResult: number[] = [];
   let tenPlace: any = [];
   if (l1.length > l2.length || l1.length === l2.length) {
     arrayLong = l1;
@@ -13,7 +13,8 @@ const addTwoNumbers = (l1: any[], l2: any[]) => {
   for (let i = 0; i < arrayLong.length; i++) {
     const short = arrayShort[i] ? arrayShort[i] : 0;
     const temp = arrayLong[i] + short + (tenPlace?.pop() || 0);
-    const tempString = temp > 9 ? String(temp).substring(1, 2) : String(temp);
+    const tempString: string =
+      temp > 9 ? String(temp).substring(1, 2) : String(temp);
     arrayResult.push(Number(tempString));
     temp > 9 && tenPlace.push(Number(String(temp).substring(0, 1)));
     i === arrayLong.length - 1 &&
@@ -92,7 +93,7 @@ function expandAroundCenter(s: string, left: number, right: number): number {
 
 function convert(s: string, numRows: number): string {
   if (numRows < 2) return s;
-  let zig = [];
+  let zig: string[] = [];
   let cycle = numRows * 2 - 2;
   for (let j = 0; j < numRows; j++) {
     for (let i = 0; j + i < s.length; i += cycle) {
