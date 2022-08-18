@@ -9,3 +9,11 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
+.full {
+  width: 100%;
+}
+
+.big {
+  font-size: 50px;
+}
